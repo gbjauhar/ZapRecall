@@ -6,7 +6,7 @@ import React, { useState } from 'react';
 
 
 export default function App() {
-    const [contador, setContador] = useState(0)
+    const [count, setCount] = useState(0)
 
     return (
         <Screencontainer>
@@ -15,13 +15,13 @@ export default function App() {
                 <Title>ZapRecall</Title>
             </Logocontainer>
             <>{deck.map((f) => (
-                <Flashcards contador={contador} setContador={setContador} key={f.id} pergunta={f.pergunta} resposta={f.resposta} id={f.id} />
+                <Flashcards count={count} setCount={setCount} key={f.id} question={f.question} answer={f.answer} id={f.id} />
             ))}
             </>
-            <FooterConcluidos>
+            <Footer>
 
-                {contador}/{deck.length} concluídos
-            </FooterConcluidos>
+                {count}/{deck.length} concluídos
+            </Footer>
         </Screencontainer>
     )
 }
@@ -59,7 +59,7 @@ const Title = styled.h1`
   margin-left: 20px;
   `
 
-const FooterConcluidos = styled.footer`
+const Footer= styled.footer`
 width: 100%;
 min-height: 50px;
 background-color: #FFFFFF;

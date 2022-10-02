@@ -1,13 +1,18 @@
 import styled from 'styled-components';
 import React, { useState } from 'react';
-import setavirar from "./assets/img/seta_virar.png"
-import setaplay from "./assets/img/seta_play.png"
+import turn from "./assets/img/seta_virar.png"
+import play from "./assets/img/seta_play.png"
+import right from "./assets/img/icone_certo.png"
+import almost from "./assets/img/icone_quase.png"
+import wrong from "./assets/img/icone_erro.png"
 
 
 export default function Flashcards(props) {
     const [start, setStart] = useState(1)
-    const [cor, setCor] = useState('#000000')
-    const { contador, setContador } = props
+    const [changeColor, setChangeColor] = useState('#000000')
+    const [img, setImg] = useState(play)
+    const [line, setLine] = useState('')
+    const { count, setCount } = props
     function True() {
         return (
             setStart(start + 1)
@@ -15,51 +20,57 @@ export default function Flashcards(props) {
 
     }
 
-    function botaoVermelho(){
-        setContador(contador + 1)
+    function changeRed(){
+        setCount(count + 1)
         setStart(1)
-        setCor('#FF3030')
+        setChangeColor('#FF3030')
+        setImg(wrong)
+        setLine('line-through')
     }
 
-    function botaoVerde(){
-        setContador(contador + 1)
+    function changeGreen(){
+        setCount(count + 1)
         setStart(1)
-        setCor('#2FBE34')
+        setChangeColor('#2FBE34')
+        setImg(right)
+        setLine('line-through')
     }
 
-    function botaoAmarelo(){
-        setContador(contador + 1)
+    function changeYellow(){
+        setCount(count + 1)
         setStart(1)
-        setCor('#FF922E')
+        setChangeColor('#FF922E')
+        setImg(almost)
+        setLine('line-through')
     }
     if (start === 1) {
         return (
-            <PerguntaFechada corMudada={cor} key={props.id}>
+            <ClosedQuestion changeColor={changeColor} line={line} key={props.id}>
                 <p>Pergunta {props.id}</p>
-                <img src={setaplay} onClick={True} />
-            </PerguntaFechada>)
+                <img src={img} onClick={True} />
+            </ClosedQuestion>)
     }
     else if (start === 2) {
         return (
-            <PerguntaAberta>
-                <p>{props.pergunta}</p>
-                <img src={setavirar} onClick={True}
+            <OpenedQuestion>
+                <p>{props.question}</p>
+                <img src={turn} onClick={True}
                 />
-            </PerguntaAberta>
+            </OpenedQuestion>
 
         )
     }
     else if (start === 3) {
         return (
             
-            <PerguntaAberta>
-                <p>{props.resposta}</p>
-                <Botões>
-                <Vermelho onClick={botaoVermelho}>Não lembrei</Vermelho>
-                <Amarelo onClick={botaoAmarelo}>Quase não lembrei</Amarelo>
-                <Verde onClick={botaoVerde}>Zap!</Verde>
-            </Botões>
-            </PerguntaAberta>
+            <OpenedQuestion>
+                <p>{props.answer}</p>
+                <Buttons>
+                <Red onClick={changeRed}>Não lembrei</Red>
+                <Yellow onClick={changeYellow}>Quase não lembrei</Yellow>
+                <Green onClick={changeGreen}>Zap!</Green>
+            </Buttons>
+            </OpenedQuestion>
             
             
         )
@@ -68,7 +79,7 @@ export default function Flashcards(props) {
 
 
 
-const PerguntaAberta = styled.div`
+const OpenedQuestion = styled.div`
   width: 300px;
   margin: 12px;
   height: 131px;
@@ -93,7 +104,7 @@ const PerguntaAberta = styled.div`
   }
   `
 
-const PerguntaFechada = styled.div`
+const ClosedQuestion = styled.div`
 width: 300px;
 height: 35px;
 background-color: #FFFFFF;
@@ -110,18 +121,19 @@ font-style: normal;
 font-weight: 700;
 font-size: 16px;
 line-height: 19px;
-color:${props => props.corMudada}
+color:${props => props.changeColor};
+text-decoration:${props => props.line}
 }
 `
 
-const Botões = styled.div`
+const Buttons = styled.div`
 display: flex;
 width: 80%;
 justify-content: space-between;
 margin: 20px;
 `
 
-const Vermelho = styled.button`
+const Red = styled.button`
   width: 90px;
   font-family: 'Recursive';
   font-style: normal;
@@ -139,7 +151,7 @@ const Vermelho = styled.button`
   padding:5px;
   `
 
-const Verde = styled.button`
+const Green = styled.button`
 width: 90px;
 font-family: 'Recursive';
 font-style: normal;
@@ -157,7 +169,7 @@ border: 1px solid blue;
 padding:5px;
 `
 
-const Amarelo = styled.button`
+const Yellow = styled.button`
 width: 90px;
 font-family: 'Recursive';
 font-style: normal;
