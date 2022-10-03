@@ -45,16 +45,16 @@ export default function Flashcards(props) {
     }
     if (start === 1) {
         return (
-            <ClosedQuestion changeColor={changeColor} line={line} key={props.id}>
+            <ClosedQuestion data-identifier="flashcard-index-item" changeColor={changeColor} line={line} key={props.id}>
                 <p>Pergunta {props.id}</p>
-                <img src={img} onClick={True} />
+                <img data-identifier="flashcard-show-btn" alt={img} src={img} onClick={True} />
             </ClosedQuestion>)
     }
     else if (start === 2) {
         return (
-            <OpenedQuestion>
+            <OpenedQuestion data-identifier="flashcard-question">
                 <p>{props.question}</p>
-                <img src={turn} onClick={True}
+                <img data-identifier="flashcard-turn-btn" alt={img} src={turn} onClick={True}
                 />
             </OpenedQuestion>
 
@@ -63,12 +63,12 @@ export default function Flashcards(props) {
     else if (start === 3) {
         return (
             
-            <OpenedQuestion>
+            <OpenedQuestion data-identifier="flashcard-answer">
                 <p>{props.answer}</p>
                 <Buttons>
-                <Red onClick={changeRed}>Não lembrei</Red>
-                <Yellow onClick={changeYellow}>Quase não lembrei</Yellow>
-                <Green onClick={changeGreen}>Zap!</Green>
+                <Red data-identifier="forgot-btn" onClick={changeRed}>Não lembrei</Red>
+                <Yellow data-identifier="almost-forgot-btn"onClick={changeYellow}>Quase não lembrei</Yellow>
+                <Green data-identifier="zap-btn" onClick={changeGreen}>Zap!</Green>
             </Buttons>
             </OpenedQuestion>
             

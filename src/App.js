@@ -15,10 +15,10 @@ export default function App() {
                 <Title>ZapRecall</Title>
             </Logocontainer>
             <>{deck.map((f) => (
-                <Flashcards count={count} setCount={setCount} key={f.id} question={f.question} answer={f.answer} id={f.id} />
+                <Flashcards data-identifier="flashcard" count={count} setCount={setCount} key={f.id} question={f.question} answer={f.answer} id={f.id} />
             ))}
             </>
-            <Footer>
+            <Footer data-identifier="flashcard-counter">
 
                 {count}/{deck.length} concluídos
             </Footer>
